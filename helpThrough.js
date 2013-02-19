@@ -73,6 +73,8 @@
 				);
 			}
 		}
+
+		return this;
 	};
 
 })( jQuery );
