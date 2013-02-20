@@ -5,16 +5,19 @@
  */
 
 (function( $ ) {
-	$.fn.helpThrough = function(vars) {
-		var selector		= ".stepthrough";
-		var charsPerTime	= 15;
-		var orientation	= "right";
-		var verticalOffset	= 75;
-		var currentColor	= "#37D932";
+	$.fn.helpThrough = function(options) {
 		
-		var $selected		= $(selector);
+		var options		= $.extend({
+			selector:			".stepthrough",
+			charsPerTime:		15,
+			orientation:		"right",
+			verticalOffset:	75,
+			currentColor:		"#37D932"
+		}, options);
 		
-		$("<style type='text/css'> .stepover-current{border-color:"+currentColor+" !important;box-shadow:0 0 10px "+currentColor+" !important;}</style>").appendTo("head");
+		var $selected		= $(options.selector);
+		
+		$("<style type='text/css'> .stepover-current{border-color:"+options.currentColor+" !important;box-shadow:0 0 10px "+options.currentColor+" !important;}</style>").appendTo("head");
 		
 		this.on('click', function(){
 			helpWalk( $selected );
@@ -32,11 +35,11 @@
 				
 				// The amount of time (in seconds) to display this help box
 				var wait 	= 0;
-				var loc 	= $element.data('loc') != undefined ? $element.data('loc') : orientation;
+				var loc 	= $element.data('loc') != undefined ? $element.data('loc') : options.orientation;
 				
 				// If the msg value is empty or missing, return here, otherwise compute the length of time to display the help box
 				if( msg != undefined && msg.length > 0 ) {
-					wait = 1000 * (Math.ceil( msg.length / charsPerTime ) + 1);
+					wait = 1000 * (Math.ceil( msg.length / options.charsPerTime ) + 1);
 				}
 				else {
 					return;
@@ -44,7 +47,7 @@
 	
 				// Scroll the window down to the element (with a little space above it for aesthetics)
 				$('html, body').animate({
-					scrollTop:	$element.offset().top - verticalOffset
+					scrollTop:	$element.offset().top - options.verticalOffset
 								}, 500);
 	
 				// Highlight the target field (by applying the stepover-current class)

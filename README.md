@@ -37,6 +37,4 @@ This plugin currently has no options.
 -------------------------------------------------------------------------------
 
 TODO:
-- Add handling of options
 - Allow ordering of fields
-- .min
